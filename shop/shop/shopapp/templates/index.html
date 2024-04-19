@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %} Главная {% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <main class="tm-main">
+                 
+        <div class="row tm-row">
+
+            {% for article in articles %}
+
+            <article class="col-12 col-md-6 tm-post">
+                <hr class="tm-hr-primary">
+                    <div class="tm-post-link-inner">
+                        {% load static %}
+                        <img src="{% get_static_prefix %}uploaded_img/{{ article.image }}" alt="Image" class="img-fluid">
+                    </div>
+                    <h2 class="tm-pt-30 tm-color-primary tm-post-title">{{ article.title }}</h2>
+                <p class="tm-pt-30">
+                    {{ article.text }}
+                </p>
+                <div class="d-flex justify-content-between tm-pt-45">
+                    <span class="tm-color-primary">Тема: {{ article.topic }}</span>
+                    <span class="tm-color-primary">{{ article.date }}</span>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
+
+                    <span>Автор: {{ article.author }}</span>
+                </div>
+            </article>
+
+            {% endfor %}
+
+        </div>
+
+    </main>
+</div>
+{% endblock %}

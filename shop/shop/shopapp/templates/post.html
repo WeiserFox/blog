@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %} Сделать пост {% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <main class="tm-main">
+            <div class="row tm-row">
+                <div class="col-lg-8 tm-post-col">
+                    <div class="tm-post-full">
+                        <div>
+                            <form action="" class="mb-5 tm-comment-form" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <h2 class="tm-color-primary tm-post-title mb-4">Ваш пост</h2>
+                                <div class="mb-4">
+                                    <input class="form-control" placeholder="Введите заголовок поста" name="title" type="text" required maxlength="10">
+                                </div>
+                                <div class="mb-4">
+                                    <input class="form-control" placeholder="Введите тему поста" name="topic" type="text" required maxlength="10">
+                                </div>
+                                <div class="mb-4">
+                                    <textarea class="form-control" placeholder="Текст поста" name="text" rows="6" required maxlength="90"></textarea>
+                                </div>
+                                <div class="mb-4">
+                                    <h3 class="tm-color-primary tm-post-title mb-4">Фото поста</h3>
+                                    <input type="file" placeholder="Загрузите картинку" name="image" required>
+                                </div>
+                                <div class="text-right">
+                                    <button class="tm-btn tm-btn-primary tm-btn-small" type="submit">Отправить</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+
+{% endblock %}

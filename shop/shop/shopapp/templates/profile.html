@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %} {% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid">
+        <main class="tm-main">
+            <div class="row tm-row tm-mb-40">
+                <div class="col-12">
+                    <div class="mb-4">
+                        <h2 class="pt-2 tm-mb-40 tm-color-primary tm-post-title">Ваш профиль</h2>
+                        <br>
+                        <h2 class="tm-color-primary tm-post-title mb-4">Имя пользователя:</h2>
+                        <h2 class="tm-color-primary tm-post-title mb-4">{{ username }}</h2>
+                        <br>
+                        <form action="http://127.0.0.1:8000/rename">
+                            <button class="tm-btn tm-btn-primary tm-btn-small" type="submit">Сменить имя пользователя</button>
+                        </form>
+                        <br>
+                        <form action="http://127.0.0.1:8000/repassword">
+                            <button class="tm-btn tm-btn-primary tm-btn-small" type="submit">Сменить пароль</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="container-fluid">
+    <main class="tm-main">
+
+        <h2 class="pt-2 tm-mb-40 tm-color-primary tm-post-title">Ваши статьи</h2>
+        <br>
+
+        <div class="row tm-row">
+            {% for article in articles %}
+
+            <article class="col-12 col-md-6 tm-post">
+                <hr class="tm-hr-primary">
+                    <div class="tm-post-link-inner">
+                        {% load static %}
+                        <img src="{% get_static_prefix %}uploaded_img/{{ article.image }}" alt="Image" class="img-fluid">
+                    </div>
+                    <h2 class="tm-pt-30 tm-color-primary tm-post-title">{{ article.title }}</h2>
+                <p class="tm-pt-30">
+                    {{ article.text }}
+                </p>
+                <div class="d-flex justify-content-between tm-pt-45">
+                    <span class="tm-color-primary">{{ article.topic }}</span>
+                    <span class="tm-color-primary">{{ article.date }}</span>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <span>Автор: {{ article.author }}</span>
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value="{{ article.id }}">
+                        <input style="color:red" type="submit" value="Удалить">
+                    </form>
+                </div>
+            </article>
+
+            {% endfor %}
+
+            </div>
+
+    </main>
+    </div>
+
+{% endblock %}
