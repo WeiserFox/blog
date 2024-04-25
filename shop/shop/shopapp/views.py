@@ -136,4 +136,4 @@ class ChangePassword(View):
             user.save()
             return redirect("/home")
         else:
-            return HttpResponse("Хуйня")
+            return HttpResponse("Неверный код подтверждения или пароли не совпадают!")
