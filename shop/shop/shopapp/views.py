@@ -8,6 +8,7 @@ from django.core.files.storage import FileSystemStorage
 from . import email_code
 import random
 from asgiref.sync import sync_to_async
+import re
 
 AUTH_REQUIRED_MSG = "Войдите в учётную запись"
 
@@ -29,12 +30,12 @@ class Post(View):
             filename = fs.save(image.name, image)
             uploaded_file_path = fs.path(filename)
             note = models.Post()
-            print(filename)
-            note.create_post(image=filename, title=data['title'], text=data['text'], topic=data['topic'], date=datetime.datetime.now(), author=request.user.username)
-            print(uploaded_file_path)
-            return redirect('/home')
-        else:
-            return HttpResponseBadRequest(AUTH_REQUIRED_MSG)
+            match = re.fullmatch(r'[^$]*[.](png|jpg|jpeg)$', filename)
+            if match is None:
+                return HttpResponse("Вы должны выбрать фото расширения .png .jpg или .jpeg")
+            else:
+                note.create_post(image=filename, title=data['title'], text=data['text'], topic=data['topic'], date=datetime.datetime.now(), author=request.user.username)
+                return redirect('/home')
 
 
 class About(View):
